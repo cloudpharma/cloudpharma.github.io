@@ -73,7 +73,7 @@ function build_panel(content) {
 }
 
 function format_header() {
-    const ROOT  = 'http://127.0.0.1:5500/'
+    const ROOT  = 'http://cloudpharma.github.io/'
     var   links = document.getElementsByClassName('linkedto')
 
     for (var i=0; i<links.length; i++) {
@@ -181,4 +181,4 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
 
     document.addEventListener('keypress', enter_test)
 
-})
+})    
