@@ -15,7 +15,7 @@ function Header(menu) {
         var link    = document.createElement('a')
         link.classList.add('nav-link', 'scrollto', 'linkedto')
         if (i == 0) link.classList.add('active')
-        var direction = 'http://127.0.0.1:5500/' + menu[i][1]
+        var direction = 'https://cloudpharma.github.io/' + menu[i][1]
         link.href      = direction
         link.innerHTML = menu[i][0]
         var item       = document.createElement('li')
