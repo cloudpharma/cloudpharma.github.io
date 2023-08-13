@@ -1,3 +1,10 @@
+function formatar_data(data) {
+    var cortada = data.split("T")[0]
+    var partes  = cortada.split("-")
+    return partes[2] + "/" + partes[1] + "/" + partes[0]
+}
+
+
 function Panel(items) {
     var title_span       = document.createElement('span')
     title_span.innerHTML = 'Estoque'
@@ -38,7 +45,7 @@ function Panel(items) {
         email_text.setAttribute('style', 'text-align: left;')
 
         var next_text       = document.createElement('p')
-        next_text.innerHTML = 'Proxima compra: ' + value['Proxima Compra']
+        next_text.innerHTML = 'Proxima compra: ' + formatar_data(value['Proxima Compra'])
         next_text.setAttribute('style', 'text-align: left;')
 
         var info_box = document.createElement('div')

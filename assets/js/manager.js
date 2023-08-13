@@ -73,7 +73,7 @@ function build_panel(content) {
 }
 
 function format_header() {
-    const ROOT  = 'http://cloudpharma.github.io/'
+    const ROOT  = 'https://cloudpharma.github.io/'
     var   links = document.getElementsByClassName('linkedto')
 
     for (var i=0; i<links.length; i++) {

@@ -6,6 +6,7 @@ function Footer(name, email, menu, social) {
         icon.classList.add('bx', 'bx-chevron-right')
 
         var link  = document.createElement('a')
+        link.classList.add('linkedto')
         link.href      = menu[i][1]
         link.innerHTML = menu[i][0]
 
