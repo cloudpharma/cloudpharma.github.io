@@ -35,29 +35,32 @@ function Panel(items) {
     var first_row_col = document.createElement('div')
     first_row_col.classList.add('col-lg-12', 'col-md-6')
 
-    for (const [key, value] of Object.entries(items)) {
-        var info_title       = document.createElement('h4')
-        info_title.innerHTML = value['nome']
-        info_title.setAttribute('style', 'text-align: left; color: #63c055;')
-
-        var email_text       = document.createElement('p')
-        email_text.innerHTML = 'Quantidade em estoque: ' + value['Quantidade']
-        email_text.setAttribute('style', 'text-align: left;')
-
-        var next_text       = document.createElement('p')
-        next_text.innerHTML = 'Proxima compra: ' + formatar_data(value['Proxima Compra'])
-        next_text.setAttribute('style', 'text-align: left;')
-
+    for (const [key, values] of Object.entries(items)) {
         var info_box = document.createElement('div')
         info_box.classList.add('info-box', 'mb-4')
         info_box.setAttribute('style', 'padding-left: 20px;')
-        info_box.appendChild(info_title)
-        info_box.appendChild(email_text)
-        info_box.appendChild(next_text)
+
+        for (const [name, value] of Object.entries(values)) {
+            if (name == 'nome') {
+                var info_title       = document.createElement('h4')
+                info_title.innerHTML = value
+                info_title.setAttribute('style', 'text-align: left; color: #63c055;')
+
+                info_box.appendChild(info_title)
+            } else {
+                var att_text       = document.createElement('p')
+                att_text.innerHTML = name + ': ' + value
+                if (name == 'Proxima Compra')  {
+                    att_text.innerHTML = name + ': ' + formatar_data(value)
+                }
+                att_text.setAttribute('style', 'text-align: left;')
+
+                info_box.appendChild(att_text)
+            }
+        }
 
         first_row_col.appendChild(info_box) 
     }
-
 
     var first_row = document.createElement('div')
     first_row.classList.add('row')
