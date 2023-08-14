@@ -62,6 +62,10 @@ function Panel(items) {
         first_row_col.appendChild(info_box) 
     }
 
+    if (Object.entries(items).length == 0) {
+        first_row_col.appendChild(document.createTextNode('Sem medicamentos registrados!'))
+    }
+
     var first_row = document.createElement('div')
     first_row.classList.add('row')
     first_row.setAttribute('data-aos', 'fade-up')

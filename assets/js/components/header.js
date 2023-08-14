@@ -23,10 +23,16 @@ function Header(menu) {
         list.appendChild(item)
     }
 
+    var icon = document.createElement('i')
+    icon.classList.add('bi', 'mobile-nav-toggle', 'bi-list')
+    icon.setAttribute('style', 'color: black;')
+    icon.id = 'icon'
+
     var navbar    = document.createElement('nav')
     navbar.classList.add('navbar')
     navbar.id = 'navbar'
     navbar.appendChild(list)
+    navbar.appendChild(icon)
 
     var container = document.createElement('div')
     container.classList.add('container', 'd-flex', 'align-items-center', 'justify-content-between')

@@ -42,6 +42,8 @@ var login   = Login(email)
 var contact = Contact(email)
 var footer  = Footer(name, email, menu, social)
 
+main.setAttribute('style', 'min-height: 600px;')
+
 
 function build_home() {
     body.insertBefore(hero, body.firstChild)
@@ -70,6 +72,17 @@ function build_login() {
 function build_panel(content) {
     var panel = Panel(content)
     main.appendChild(panel)
+}
+
+function build_preloader() {
+    var preloader = document.createElement('div')
+    preloader.id  = 'preloader'
+    main.appendChild(preloader)
+}
+
+function remove_preloader() {
+    let preloader = document.getElementById('preloader')
+    preloader.remove()
 }
 
 function format_header() {
@@ -117,11 +130,8 @@ function format_header() {
 async function getData(url) {
     const response = await fetch(url);
     const names    = await response.json();
-
-    console.log(names)
-    console.log(Object.keys(names).length); 
     
-    return names
+    return names   
 }
 
 
@@ -160,12 +170,47 @@ function login_handler() {
             const content_api   = "https://script.google.com/macros/s/AKfycbzuylcT9YIo1JUAQTk7Z_uQCUWE0d0cxYD4cauFOHOX_EAlS7YFCycSdkHULp_5YcWY/exec?email=" + username
             getData(content_api).then((content) => {
                 build_panel(content)
+                remove_preloader()
             })
         } else {
+            remove_preloader()
             alert('Usuario ou senha incorretos!')
         }
     })
 }
+
+
+var nav     = document.getElementById('navbar')
+var trigger = document.getElementById('icon')
+var nav_links = document.getElementsByClassName('nav-link')
+
+function mobile_nav() {
+    trigger.addEventListener('click', (event) => {
+        nav.classList.add('navbar-mobile')
+        trigger.classList.remove('bi-list')
+        trigger.classList.add('bi-x')
+        trigger.removeAttribute('style')
+        trigger.setAttribute('style', 'color: white;')
+        // add event listener
+        for (let i=0; i<nav_links.length; i++) {
+            nav_links[i].addEventListener('click', web_nav)
+        }
+        trigger.addEventListener('click', (event) => {
+            web_nav()
+        })
+    })
+}
+
+function web_nav() {
+    nav.classList.remove('navbar-mobile')
+    trigger.classList.remove('bi-x')
+    trigger.classList.add('bi-list')
+    trigger.setAttribute('style', 'color: black;')
+    // remove event listener
+    mobile_nav()
+}
+
+mobile_nav()
 
 document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) => {
     event.preventDefault();
@@ -176,6 +221,8 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
     var btn  = document.getElementById('login-btn')
     var form = document.getElementsByClassName('login-form')[0]
     btn.addEventListener('click', (e) => {
+        //remove_home()
+        build_preloader()
         login_handler()
     })
 
