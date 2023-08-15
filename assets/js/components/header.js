@@ -15,7 +15,7 @@ function Header(menu) {
         var link    = document.createElement('a')
         link.classList.add('nav-link', 'scrollto', 'linkedto')
         if (i == 0) link.classList.add('active')
-        var direction = 'https://cloudpharma.github.io/' + menu[i][1]
+        var direction  = 'https://cloudpharma.github.io/' + menu[i][1]
         link.href      = direction
         link.innerHTML = menu[i][0]
         var item       = document.createElement('li')
@@ -40,7 +40,7 @@ function Header(menu) {
     container.appendChild(navbar)
 
     var header    = document.createElement('header')
-    header.classList.add('d-flex', 'align-items-center')
+    header.classList.add('d-flex', 'align-items-center', 'fixed-top')
     header.id = 'header'
     header.appendChild(container)
 
