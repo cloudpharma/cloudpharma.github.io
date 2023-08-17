@@ -9,6 +9,7 @@ import { Contact } from './components/contact.js'
 import { Footer } from './components/footer.js'
 
 import { Login } from './components/login.js'
+import { Signin } from './components/signin.js'
 import { ContentAPIHandler } from './utils/content_api.js'
 
 var menu        = [['Início', '#hero'], ['Sobre', '#about'], ['Preço', '#pricing'], ['Entrar', '#cta'], ['Contato', '#contact']]
@@ -29,6 +30,8 @@ var cta_description = 'Acesse o linke abaixo para entrar na Cloud Pharma com a s
 var cta_link        = '#'
 var cta_btn_text    = 'Entrar'
 
+var planos = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']
+
 var body   = document.getElementById('body')
 var main   = document.getElementById('main')
 
@@ -39,7 +42,9 @@ var whyus   = WhyUs(reasons)
 var pricing = Pricing(plans)
 var cta     = CTA(cta_title, cta_description, cta_link, cta_btn_text)
 var login   = Login(email)
+var signin  = Signin(email, planos)
 var contact = Contact(email)
+
 var footer  = Footer(name, email, menu, social)
 
 main.setAttribute('style', 'min-height: 600px;')
@@ -138,9 +143,6 @@ async function getData(url) {
 async function getLogin(url) {
     const response = await fetch(url);
     const names    = await response.json();
-
-    console.log(names)
-    console.log(Object.keys(names).length); 
     
     return names
 }
@@ -179,6 +181,42 @@ function login_handler() {
     })
 }
 
+var buy_btns = document.getElementsByClassName('btn-buy')
+for (var k=0; k<buy_btns.length; k++) {
+    let buy_btn = buy_btns[k]
+    buy_btn.addEventListener('click', (e) => {
+        remove_home()
+        format_header()  
+        main.appendChild(signin)
+        var s_btn = document.getElementById('signin-btn')
+        s_btn.addEventListener('click', (e) => {
+            build_preloader()
+            var  username = document.getElementById('username').value
+            var  plan     = document.getElementById('plan').value
+            var  terms    = document.getElementById('terms').checked
+            if (terms) {
+                var email_api = 'https://script.google.com/macros/s/AKfycbxhQlER92Kln4PqFJPs4TJmOvFP6b_YgmwyWLCmbFBz7HuzcMKktoT5t4LRd44aygYu/exec?email=' + username 
+                getData(email_api).then((response) => {
+                    remove_preloader()
+                    if (response['response'] === 'True') {
+                        alert('O email ja esta associado a uma conta!')
+                    } else {
+                        if (plan == 'Escolha um plano:') {
+                            alert('Por favor escolha um plano.')
+                        } else {
+                            var register_api = 'https://script.google.com/macros/s/AKfycbz9PNUdWOXcLR6JGiJiPZ92S_rPECp6q9ksOgxxn7NiX-vVCNpQ6NQxxbAcBHPci4Va/exec?email=' + username + '&plan=' + plan
+                            getData(register_api).then((response) => {
+                                alert('Dentro de 24h enviaremos um email pra o endereco indicado com as proximas instrucoes.')
+                            })
+                        }
+                    }
+                })
+            } else {
+                alert('Para continuar voce deve aceitar os termos e condicoes.')
+            }
+        })
+    })
+}
 
 var nav     = document.getElementById('navbar')
 var trigger = document.getElementById('icon')
@@ -191,7 +229,6 @@ function mobile_nav() {
         trigger.classList.add('bi-x')
         trigger.removeAttribute('style')
         trigger.setAttribute('style', 'color: white;')
-        // add event listener
         for (let i=0; i<nav_links.length; i++) {
             nav_links[i].addEventListener('click', web_nav)
         }
@@ -228,4 +265,45 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
 
     document.addEventListener('keypress', enter_test)
 
-})    
+})
+
+var h_links = document.getElementsByClassName('linkedto')
+window.onscroll = function() {myFunction()};
+
+function myFunction() {
+    if (document.body.scrollTop < 400 || document.documentElement.scrollTop < 400) {
+        h_links[0].classList.add('active')
+        h_links[1].classList.remove('active')
+        h_links[2].classList.remove('active')
+        h_links[3].classList.remove('active')
+        h_links[4].classList.remove('active')
+    }
+    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        h_links[1].classList.add('active')
+        h_links[0].classList.remove('active')
+        h_links[2].classList.remove('active')
+        h_links[3].classList.remove('active')
+        h_links[4].classList.remove('active')
+    }
+    if (document.body.scrollTop > 1600 || document.documentElement.scrollTop > 1600) {
+        h_links[2].classList.add('active')
+        h_links[1].classList.remove('active')
+        h_links[0].classList.remove('active')
+        h_links[3].classList.remove('active')
+        h_links[4].classList.remove('active')
+    }
+    if (document.body.scrollTop > 2200 || document.documentElement.scrollTop > 2200) {
+        h_links[3].classList.add('active')
+        h_links[1].classList.remove('active')
+        h_links[2].classList.remove('active')
+        h_links[0].classList.remove('active')
+        h_links[4].classList.remove('active')
+    }
+    if (document.body.scrollTop > 2500 || document.documentElement.scrollTop > 2500) {
+        h_links[4].classList.add('active')
+        h_links[1].classList.remove('active')
+        h_links[2].classList.remove('active')
+        h_links[3].classList.remove('active')
+        h_links[0].classList.remove('active')
+    }
+}

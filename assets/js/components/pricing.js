@@ -53,7 +53,7 @@ function Pricing(plans) {
 
         var btn       = document.createElement('a')
         btn.classList.add('btn-buy')
-        btn.href      = plans[i][4]
+        //btn.href      = plans[i][4]
         btn.innerHTML = 'Comprar'
 
         var btn_wrap = document.createElement('div')
