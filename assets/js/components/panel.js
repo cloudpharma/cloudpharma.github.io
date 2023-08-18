@@ -19,11 +19,12 @@ function Panel(items) {
     btn.classList.add('panel-btn')
     btn.setAttribute('style', 'margin-top: 20px;')
     btn.type      = 'button'
+    btn.id        = 'panel-btn'
     btn.innerHTML = 'Adicionar novo medicamento'
 
-    btn.addEventListener('click', (e) => {
-        location.href = 'https://forms.gle/uq3FmSqZEsUYkKKs5'
-    })
+    //btn.addEventListener('click', (e) => {
+        //location.href = 'https://forms.gle/uq3FmSqZEsUYkKKs5'
+    //})
 
     var section_title = document.createElement('div')
     section_title.classList.add('section-title')

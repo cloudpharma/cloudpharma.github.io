@@ -11,6 +11,7 @@ import { Footer } from './components/footer.js'
 import { Login } from './components/login.js'
 import { Signin } from './components/signin.js'
 import { ContentAPIHandler } from './utils/content_api.js'
+import { NewMed } from './components/newmed.js'
 
 var menu        = [['Início', '#hero'], ['Sobre', '#about'], ['Preço', '#pricing'], ['Entrar', '#cta'], ['Contato', '#contact']]
 var name        = 'Cloud Pharma'
@@ -31,6 +32,8 @@ var cta_link        = '#'
 var cta_btn_text    = 'Entrar'
 
 var planos = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']
+var med    = ['Medicamento:', 'Tilenol', 'Xanax', 'Neoflerin']
+var period = ['Periodo:', 'Diario', 'Semanal', 'Semestral', 'Anual']
 
 var body   = document.getElementById('body')
 var main   = document.getElementById('main')
@@ -44,7 +47,7 @@ var cta     = CTA(cta_title, cta_description, cta_link, cta_btn_text)
 var login   = Login(email)
 var signin  = Signin(email, planos)
 var contact = Contact(email)
-
+var newmed  = NewMed(email, med, period)
 var footer  = Footer(name, email, menu, social)
 
 main.setAttribute('style', 'min-height: 600px;')
@@ -171,8 +174,44 @@ function login_handler() {
             login.remove()
             const content_api   = "https://script.google.com/macros/s/AKfycbzuylcT9YIo1JUAQTk7Z_uQCUWE0d0cxYD4cauFOHOX_EAlS7YFCycSdkHULp_5YcWY/exec?email=" + username
             getData(content_api).then((content) => {
-                build_panel(content)
+                var panel = Panel(content)
+                main.appendChild(panel)
                 remove_preloader()
+                var panel_btn = document.getElementById('panel-btn')
+                panel_btn.addEventListener('click', (e) => {
+                    panel.remove()
+                    main.appendChild(newmed)
+                    var register_btn = document.getElementById('register-btn')
+                    register_btn.addEventListener('click', (e) => {
+                        build_preloader()
+                        var  username = document.getElementById('username').value
+                        var  password = document.getElementById('password').value
+                        const login_api = 'https://script.google.com/macros/s/AKfycbzqtxWCr2Lps92bBt2agMqJVZ_9kkT31h2C_kE-hFszqKRDpow-UPrDTpv1C8y3b7o4zA/exec?email=' + username + '&id=' + password
+                        getLogin(login_api).then((response) => {
+                            if (response['response'] === 'True') {
+                                var plan        = document.getElementById('plan').value
+                                var quantidade  = document.getElementById('quantidade').value
+                                var period      = document.getElementById('period').value
+                                var consumo     = document.getElementById('quantidade').value
+                                var recebimento = document.getElementById('recebimento').value
+                                var vencimento  = document.getElementById('quantidade').value
+                                var cad_api     = 'https://script.google.com/macros/s/AKfycbwfuRr-EMICltQdAMm6ZTfB3hYw5eu91J7AkdC-WIRI_YOnhFykdvl_wXyePwn5kElrPA/exec?email=' + username + '&id=' + password + '&plan=' + plan + '&quant=' + quantidade + '&period=' + period + '&consumo=' + consumo + '&rec=' + recebimento + '&venc=' + vencimento
+                                getData(cad_api).then((response) => {
+                                    if (response['response'] === 'true') {
+                                        remove_preloader()
+                                        alert('Medicamento registrado! Dentro de 24h estara disponivel no seu estoque virtual.')
+                                    } else {
+                                        remove_preloader()
+                                        alert('Algo deu errado. Por favor aguarde alguns instantes e tente novamente. Se o problema persistir contate o nosso email.')
+                                    }
+                                })
+                            } else {
+                                remove_preloader()
+                                alert('Email ou senha incoretos.')
+                            }
+                        })
+                    })
+                })
             })
         } else {
             remove_preloader()
