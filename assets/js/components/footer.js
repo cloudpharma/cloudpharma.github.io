@@ -1,14 +1,16 @@
-function Footer(name, email, menu, social) {
+import { CONFIGS } from "../config.js"
+
+function Footer() {
     var list = document.createElement('ul')
 
-    for (var i=0; i<menu.length; i++) {
+    for (var i=0; i<CONFIGS.MENU.length; i++) {
         var icon = document.createElement('i')
         icon.classList.add('bx', 'bx-chevron-right')
 
         var link  = document.createElement('a')
         link.classList.add('linkedto')
-        link.href      = menu[i][1]
-        link.innerHTML = menu[i][0]
+        link.href      = CONFIGS.MENU[i][1]
+        link.innerHTML = CONFIGS.MENU[i][0]
 
         var item = document.createElement('li')
         item.appendChild(icon)
@@ -22,25 +24,25 @@ function Footer(name, email, menu, social) {
     links.appendChild(list)
 
     var title       = document.createElement('h3')
-    title.innerHTML = name
+    title.innerHTML = CONFIGS.NAME
 
     var space = document.createElement('br')
 
     var contact       = document.createElement('p')
-    contact.innerHTML = email
+    contact.innerHTML = CONFIGS.EMAIL
     contact.appendChild(space)
 
     var social_links = document.createElement('div')
     social_links.classList.add('social-links', 'mt-3')
 
-    for (var j=0; j<social.length; j++) {
+    for (var j=0; j<CONFIGS.SOCIAL.length; j++) {
         var social_icon  = document.createElement('i')
-        var class_name   = 'bxl-' + social[j][0]
+        var class_name   = 'bxl-' + CONFIGS.SOCIAL[j][0]
         social_icon.classList.add('bx', class_name)
 
         var social_link  = document.createElement('a')
-        social_link.classList.add(social[j][0])
-        social_link.href = social[j][1]
+        social_link.classList.add(CONFIGS.SOCIAL[j][0])
+        social_link.href = CONFIGS.SOCIAL[j][1]
         social_link.appendChild(social_icon)
 
         social_links.appendChild(social_link)
@@ -81,7 +83,7 @@ function Footer(name, email, menu, social) {
     credits.appendChild(document.createTextNode(' Website'))
 
     var span       = document.createElement('span')
-    span.innerHTML = name
+    span.innerHTML = CONFIGS.NAME
 
     var strong = document.createElement('strong')
     strong.appendChild(span)

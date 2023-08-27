@@ -1,23 +1,25 @@
 import { CONFIGS } from "../config.js"
+import { PreLoader } from "../utils/loading.js"
+import { ApiHandler } from "../utils/apihandler.js"
+import { SETUP } from "../setup.js"
 
-var main   = document.getElementById('main')
+var body   = document.getElementById('body')
 
-class Login {
-    constructor(Forgot, listener) {
-        this.Forgot     = new Forgot()
-        this.old_listen = listener
-        return this.build()
+class Forgot {
+    constructor() {
+        this.preloader  = new PreLoader(body)
+        this.apihandler = new ApiHandler()
     }
 
     build() {
         var title_span       = document.createElement('span')
-        title_span.innerHTML = 'Login'
+        title_span.innerHTML = 'Recuperar Senha'
 
         var title       = document.createElement('h2')
-        title.innerHTML = 'Login'
+        title.innerHTML = 'Recuperar Senha'
 
         var subs       = document.createElement('p')
-        subs.innerHTML = 'Faça login com seu usuario e senha para entrar na Cloud Pharma e aproveitar tudo que essa platafoma tem a te oferecer.'
+        subs.innerHTML = 'Insira o email vinculado com a sua conta para q sua senha seja novamente enviado pra ele.'
 
         var section_title = document.createElement('div')
         section_title.classList.add('section-title')
@@ -57,56 +59,19 @@ class Login {
         username_input.placeholder = 'Email'
         username_input.setAttribute('required', '')
 
+        this.username_input = username_input
+
         var username_group = document.createElement('div')
         username_group.classList.add('mt-3', 'form-group')
+        username_group.setAttribute('style', 'margin-bottom: 18px;')
         username_group.appendChild(username_input)
-
-        var subject_input         = document.createElement('input')
-        subject_input.classList.add('form-control')
-        subject_input.type        = 'password'
-        subject_input.name        = 'subject'
-        subject_input.id          = 'password'
-        subject_input.placeholder = 'Senha'
-        subject_input.setAttribute('required', '')
-
-        var subject_group = document.createElement('div')
-        subject_group.classList.add('mt-3', 'form-group')
-        subject_group.setAttribute('style', 'margin-top: 0px')
-        subject_group.appendChild(subject_input)
-
-        var loading = document.createElement('div')
-        loading.classList.add('loading')
-        loading.innerHTML = 'Carregando...'
-
-        var error = document.createElement('div')
-        error.classList.add('error-message')
-        error.innerHTML = 'Sua mensagem foi enviada! Logo entraremos em contato.'
-
-        var sent = document.createElement('div')
-        sent.classList.add('sent-message')
-        sent.innerHTML = 'Sua mensagem foi enviada! Logo entraremos em contato.'
-
-        var handling = document.createElement('div')
-        handling.classList.add('my-3')
-        handling.appendChild(loading)
-        handling.appendChild(error)
-        handling.appendChild(sent)
-
-        var forgot = document.createElement('a')
-        forgot.id = 'forgot-link'
-        forgot.innerHTML = 'Esqueci minha senha'
-        forgot.setAttribute('style', 'color: #78ee66; font-size: 14px;')
-
-        var forgot_group = document.createElement('div')
-        forgot_group.classList.add('mt-3', 'form-group')
-        forgot_group.appendChild(forgot)
-        forgot_group.setAttribute('style', 'margin-top: 5px !important;')
 
         var btn       = document.createElement('button')
         btn.id        = 'login-btn'
-        //btn.type      = 'submit'
         btn.type      = 'button'
-        btn.innerHTML = 'Entrar'
+        btn.innerHTML = 'Enviar'
+
+        this.btn = btn
 
         var btn_group = document.createElement('div')
         btn_group.classList.add('text-center')
@@ -119,10 +84,7 @@ class Login {
         form.id     = 'form'
         form.role   = 'form'
         form.appendChild(username_group)
-        form.appendChild(subject_group)
-        form.appendChild(forgot_group)
         form.appendChild(btn_group)
-        //form.appendChild(handling)
 
         var second_row_col = document.createElement('div')
         second_row_col.classList.add('col-lg-12')
@@ -144,21 +106,46 @@ class Login {
         section.id    = 'contact'
         section.appendChild(container)
 
-        this.section = section
-
-        forgot.addEventListener('click', (e) => {
-            document.removeEventListener('keypress', this.old_listen)
-            this.remove()
-            main.appendChild(this.Forgot.build())
-        })
+        this.send_signal()
 
         return section
     }
 
-    remove() {
-        this.section.remove()
+    send_signal() {
+        this.btn.addEventListener('click', (event) => {
+            this.preloader.build()
+            const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
+            this.apihandler.getUrl(forgot_api).then((response) => {
+                if (this.username_input.value != '') {
+                    this.preloader.remove()
+                    alert('Sua senha foi enviada ao email informado.')
+                    //location.href = SETUP.ROOT
+                    //location.reload()
+                } else {
+                    this.preloader.remove()
+                    alert('Insira um email.')
+                }
+            })
+        })
+
+        document.addEventListener('keypress', (event) => {
+            if (event.key === "Enter") {
+                this.preloader.build()
+                const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
+                this.apihandler.getUrl(forgot_api).then((response) => {
+                    if (this.username_input.value != '') {
+                        this.preloader.remove()
+                        alert('Sua senha foi enviada ao email informado.')
+                        //location.href = SETUP.ROOT
+                        //location.reload()
+                    } else {
+                        this.preloader.remove()
+                        alert('Insira um email.')
+                    }
+                })
+            }
+        })
     }
 }
 
-
-export { Login }
+export { Forgot }

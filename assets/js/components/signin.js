@@ -1,4 +1,6 @@
-function Signin(email, planos) {
+import { CONFIGS } from "../config.js"
+
+function Signin(planos) {
     var title_span       = document.createElement('span')
     title_span.innerHTML = 'Registrar'
 
@@ -21,7 +23,7 @@ function Signin(email, planos) {
     info_title.innerHTML = 'Contato para duvidas'
 
     var email_text       = document.createElement('p')
-    email_text.innerHTML = email
+    email_text.innerHTML = CONFIGS.EMAIL
 
     var info_box = document.createElement('div')
     info_box.classList.add('info-box', 'mb-4')

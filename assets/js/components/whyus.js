@@ -1,16 +1,18 @@
-function WhyUs(items) {
+import { CONFIGS } from "../config.js"
+
+function WhyUs() {
     var row = document.createElement('div')
     row.classList.add('row')
 
-    for (var i=0; i<items.length; i++) {
+    for (var i=0; i<CONFIGS.REASONS.length; i++) {
         var span       = document.createElement('span')
-        span.innerHTML = items[i][0]
+        span.innerHTML = CONFIGS.REASONS[i][0]
 
         var title       = document.createElement('h4')
-        title.innerHTML = items[i][1]
+        title.innerHTML = CONFIGS.REASONS[i][1]
 
         var description = document.createElement('p')
-        description.innerHTML = items[i][2]
+        description.innerHTML = CONFIGS.REASONS[i][2]
 
         var box = document.createElement('div')
         box.classList.add('box')

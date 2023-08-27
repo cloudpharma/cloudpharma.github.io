@@ -1,4 +1,6 @@
-function NewMed(email, medicamentos, periodos) {
+import { CONFIGS } from "../config.js"
+
+function NewMed(medicamentos, periodos) {
     var title_span       = document.createElement('span')
     title_span.innerHTML = 'Registrar'
 
@@ -21,7 +23,7 @@ function NewMed(email, medicamentos, periodos) {
     info_title.innerHTML = 'Contato para duvidas'
 
     var email_text       = document.createElement('p')
-    email_text.innerHTML = email
+    email_text.innerHTML = CONFIGS.EMAIL
 
     var info_box = document.createElement('div')
     info_box.classList.add('info-box', 'mb-4')
@@ -109,6 +111,7 @@ function NewMed(email, medicamentos, periodos) {
 
     var amount_group = document.createElement('div')
     amount_group.classList.add('mt-3', 'form-group')
+    amount_group.id = 'quantidade-group'
     amount_group.appendChild(amount_input)
     //amount_group.setAttribute('style', 'margin-top: 0px!important;')
 
@@ -243,8 +246,8 @@ function NewMed(email, medicamentos, periodos) {
     form.id     = 'form'
     form.role   = 'form'
     form.appendChild(f_title)
-    form.appendChild(username_group)
-    form.appendChild(password_group)
+    //form.appendChild(username_group)
+    //form.appendChild(password_group)
     form.appendChild(subject_group)
     form.appendChild(amount_group)
     form.appendChild(period_group)

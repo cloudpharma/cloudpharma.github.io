@@ -1234,6 +1234,18 @@ section {
   transition: 0.4s;
 }
 
+#login-btn {
+  background: var(--first);
+  border: 0;
+  padding: 10px 24px;
+  color: #fff;
+  transition: 0.4s;
+}
+
+#forgot-link:hover {
+  cursor: pointer;
+}
+
 .panel-btn {
   background: var(--first);
   border: 0;

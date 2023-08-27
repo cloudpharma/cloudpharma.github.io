@@ -1,9 +1,11 @@
-function Hero(title_text, description_text) {
+import { CONFIGS } from "../config.js"
+
+function Hero() {
     var title       = document.createElement('h1')
-    title.innerHTML = title_text
+    title.innerHTML = CONFIGS.NAME
 
     var description       = document.createElement('h2')
-    description.innerHTML = description_text
+    description.innerHTML = CONFIGS.SLOGAN
 
     var link        = document.createElement('a')
     link.classList.add('btn-get-started', 'scrollto')

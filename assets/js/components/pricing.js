@@ -1,4 +1,6 @@
-function Pricing(plans) {
+import { CONFIGS } from "../config.js"
+
+function Pricing() {
     var span       = document.createElement('span')
     span.innerHTML = 'Preço'
 
@@ -17,14 +19,14 @@ function Pricing(plans) {
     var row = document.createElement('div')
     row.classList.add('row')
 
-    for (var i=0; i<plans.length; i++) {
+    for (var i=0; i<CONFIGS.PLANS.length; i++) {
         var plan_title       = document.createElement('h3')
-        plan_title.innerHTML = plans[i][0]
+        plan_title.innerHTML = CONFIGS.PLANS[i][0]
 
         var sup       = document.createElement('sup')
         sup.innerHTML = 'R$'
 
-        var price_text = document.createTextNode(plans[i][1])
+        var price_text = document.createTextNode(CONFIGS.PLANS[i][1])
 
         var price_span       = document.createElement('span')
         price_span.innerHTML = ' / mês'
@@ -36,24 +38,23 @@ function Pricing(plans) {
 
         var list = document.createElement('ul')
 
-        for (var j=0; j<plans[i][2].length; j++) {
+        for (var j=0; j<CONFIGS.PLANS[i][2].length; j++) {
             var item = document.createElement('li')
-            item.innerHTML = plans[i][2][j]
+            item.innerHTML = CONFIGS.PLANS[i][2][j]
 
             list.appendChild(item)
         }
 
-        for (var k=0; k<plans[i][3].length; k++) {
+        for (var k=0; k<CONFIGS.PLANS[i][3].length; k++) {
             var item = document.createElement('li')
             item.classList.add('na')
-            item.innerHTML = plans[i][3][k]
+            item.innerHTML = CONFIGS.PLANS[i][3][k]
 
             list.appendChild(item)
         }
 
         var btn       = document.createElement('a')
         btn.classList.add('btn-buy')
-        //btn.href      = plans[i][4]
         btn.innerHTML = 'Comprar'
 
         var btn_wrap = document.createElement('div')

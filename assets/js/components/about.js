@@ -1,4 +1,6 @@
-function About(title_text, description_text) {
+import { CONFIGS } from "../config.js"
+
+function About() {
     var image   = document.createElement('img')
     image.classList.add('img-fluid')
     image.src   = 'assets/img/about.png'
@@ -11,11 +13,11 @@ function About(title_text, description_text) {
     img_col.appendChild(image)
 
     var title       = document.createElement('h3')
-    title.innerHTML = title_text
+    title.innerHTML = CONFIGS.SHORT_ABOUT
 
     var description       = document.createElement('p')
     description.classList.add('fst-italic')
-    description.innerHTML = description_text
+    description.innerHTML = CONFIGS.LONG_ABOUT
 
     var text_col = document.createElement('div')
     text_col.classList.add('col-lg-6', 'pt-4', 'pt-lg-0', 'order-2', 'order-lg-1', 'content')

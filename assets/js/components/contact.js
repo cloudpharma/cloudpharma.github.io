@@ -1,4 +1,6 @@
-function Contact(email) {
+import { CONFIGS } from "../config.js"
+
+function Contact() {
     var title_span       = document.createElement('span')
     title_span.innerHTML = 'Contato'
 
@@ -21,7 +23,7 @@ function Contact(email) {
     info_title.innerHTML = 'Nosso Email'
 
     var email_text       = document.createElement('p')
-    email_text.innerHTML = email
+    email_text.innerHTML = CONFIGS.EMAIL
 
     var info_box = document.createElement('div')
     info_box.classList.add('info-box', 'mb-4')

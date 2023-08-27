@@ -1,3 +1,5 @@
+import { SETUP } from './setup.js'
+
 import {Header} from './components/header.js'
 import {Hero}   from './components/hero.js'
 import { About } from './components/about.js'
@@ -10,21 +12,12 @@ import { Footer } from './components/footer.js'
 
 import { Login } from './components/login.js'
 import { Signin } from './components/signin.js'
-import { ContentAPIHandler } from './utils/content_api.js'
 import { NewMed } from './components/newmed.js'
+import { Forgot } from './components/forgot.js'
+import { Profile } from './components/profile.js'
 
-var menu        = [['Início', '#hero'], ['Sobre', '#about'], ['Preço', '#pricing'], ['Entrar', '#cta'], ['Contato', '#contact']]
-var name        = 'Cloud Pharma'
-var email       = 'cloudpharmacontato@gmail.com'
-var slogan      = 'Uma plataforma que visa ajudar as pessoas a planejar e organizar seu estoque de farmacos.'
-var short_about = 'Apaixonados por tecnologia lutando por um mundo melhor'
-var long_about  = 'A ideia da plataforma e criar um assistente para auxiliar os usuários a planejar e organizar o seu estoque de fármacos. Podendo contabilizar a quantidade atual de cada fármaco, construir uma linha do tempo do seu estoque, prever a próxima data ideal de compra e marcar eventos como datas de compra e vencimentos de fármacos no google agenda do email fornecido pelo usuário. Fácil e prática de usar, a plataforma foi pensada para conseguir atingir os mais diversos públicos.'
-var social      = [['twitter', '#'], ['facebook', '#'], ['instagram', '#'], ['linkedin', '#']]
-
-var reasons = [['Missão', 'Ajudar as pessoas por meio da tecnologia', 'Queremos fazer o uso das novas tecnologias para ajudar as pessoas a planejar e organizar seu estoque de farmacos.'],['Visão', 'Ter impactado a vida de milhões de pessoas', 'Almejamos mudar a vida de milhões de pessoas para melhor com a nossa plataforma.'],['Valores', 'Modernidade e Humanidade', '- Inovação\n- Inclusão\n- Respeito\n- Paixão por tecnologia']]
-var plans   = [['Basico', '10', ['Acompanhamento de Estoque', 'Histórico do Estoque'], ['Previsão da data de compra', 'Lembrete automático de compra no google agenda', 'Lembrete automático de vencimento no google agenda'], 'https://forms.gle/w4xcFkUDSrpYda5P6'], ['Econômico', '20', ['Acompanhamento de Estoque', 'Histórico do Estoque', 'Previsão da data de compra'], ['Lembrete automático de compra no google agenda', 'Lembrete automático de vencimento no google agenda'], 'https://forms.gle/w4xcFkUDSrpYda5P6'], ['Premium', '30', ['Acompanhamento de Estoque', 'Histórico do Estoque','Previsão da data de compra', 'Lembrete automático de compra no google agenda', 'Lembrete automático de vencimento no google agenda'], [], 'https://forms.gle/w4xcFkUDSrpYda5P6']]
-
-var items = [['Tilenol', '10', '25/08/2023', '25/07/2023'], ['Alegra', '20', '25/08/2023', '25/07/2023'], ['Vonal', '30', '25/08/2023', '25/07/2023']]
+import { PreLoader } from './utils/loading.js'
+import { ApiHandler } from './utils/apihandler.js'
 
 var cta_title       = 'Ja tem uma conta?'
 var cta_description = 'Acesse o linke abaixo para entrar na Cloud Pharma com a sua conta e aproveitar tudo que essa platafoma tem a te oferecer.'
@@ -32,30 +25,39 @@ var cta_link        = '#'
 var cta_btn_text    = 'Entrar'
 
 var planos = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']
-var med    = ['Medicamento:', 'Tilenol', 'Xanax', 'Neoflerin']
-var period = ['Periodo:', 'Diario', 'Semanal', 'Semestral', 'Anual']
+var med    = ['Medicamento:', 'Tilenol', 'Xanax', 'Neoflerin', 'Outro']
+var period = ['Periodo:', 'Diario', 'Semanal', 'Mensal', 'Anual']
 
 var body   = document.getElementById('body')
 var main   = document.getElementById('main')
 
-var hero    = Hero(name, slogan)
-var header  = Header(menu)
-var about   = About(short_about, long_about)
-var whyus   = WhyUs(reasons)
-var pricing = Pricing(plans)
+var preloader  = new PreLoader(main)
+var apihandler = new ApiHandler()
+
+var hero    = Hero()
+var header  = new Header()
+var about   = About()
+var whyus   = WhyUs()
+var pricing = Pricing()
 var cta     = CTA(cta_title, cta_description, cta_link, cta_btn_text)
-var login   = Login(email)
-var signin  = Signin(email, planos)
-var contact = Contact(email)
-var newmed  = NewMed(email, med, period)
-var footer  = Footer(name, email, menu, social)
+var login   = new Login(Forgot, enter_test)
+var signin  = Signin(planos)
+var profile = new Profile('lucamoreira007@gmail.com', 'Premium')
+var contact = Contact()
+var newmed  = NewMed(med, period)
+var footer  = Footer()
+
+var panel = ''
+
+var username = ''
+var password = ''
+var plan     = ''
 
 main.setAttribute('style', 'min-height: 600px;')
 
-
 function build_home() {
     body.insertBefore(hero, body.firstChild)
-    body.insertBefore(header, body.firstChild)
+    body.insertBefore(header.build(), body.firstChild)
     main.appendChild(about)
     main.appendChild(whyus)
     main.appendChild(pricing)
@@ -77,80 +79,6 @@ function build_login() {
     main.appendChild(login)
 }
 
-function build_panel(content) {
-    var panel = Panel(content)
-    main.appendChild(panel)
-}
-
-function build_preloader() {
-    var preloader = document.createElement('div')
-    preloader.id  = 'preloader'
-    main.appendChild(preloader)
-}
-
-function remove_preloader() {
-    let preloader = document.getElementById('preloader')
-    preloader.remove()
-}
-
-function format_header() {
-    const ROOT  = 'https://cloudpharma.github.io/'
-    var   links = document.getElementsByClassName('linkedto')
-
-    for (var i=0; i<links.length; i++) {
-        let link = links[i]
-        link.addEventListener('click', (e) => {
-            let name = link.innerHTML
-            console.log(name)
-            switch (name) {
-                case 'Início':
-                    location.href = ROOT
-                    location.reload()
-                    break
-                case 'Sobre':
-                    location.href = ROOT + '#about'
-                    location.reload()
-                    document.getElementById('#about').focus()
-                    break
-                case 'Preço':
-                    location.href = ROOT + '#pricing'
-                    location.reload()
-                    document.getElementById('#pricing').focus()
-                    break
-                case 'Entrar':
-                    location.href = ROOT + '#cta'
-                    location.reload()
-                    document.getElementById('#cta').focus()
-                    break
-                case 'Contato':
-                    location.href = ROOT + '#contact'
-                    location.reload()
-                    document.getElementById('#contact').focus()
-                    break
-                default:
-                    console.log('404 NOT FOUND')
-                }
-        })
-    }
-}
-
-
-async function getData(url) {
-    const response = await fetch(url);
-    const names    = await response.json();
-    
-    return names   
-}
-
-
-async function getLogin(url) {
-    const response = await fetch(url);
-    const names    = await response.json();
-    
-    return names
-}
-
-
 build_home()
 
 // todo: Clients
@@ -159,65 +87,177 @@ build_home()
 // todo: Team
 
 function enter_test(event) {
-    if (event.key === "Enter") login_handler()
+    if (event.key === "Enter") {
+        document.removeEventListener('keypress', enter_test)
+        preloader.build()
+        login_handler()
+    }
+}
+
+function enter_med(event) {
+    if (event.key === "Enter") {
+        document.removeEventListener('keypress', enter_med)
+        register_medcine_handler(event)
+    }
+}
+
+function register_medcine_handler(event) {
+    preloader.build()
+    var plan        = document.getElementById('plan').value
+    if (plan == 'Outro') {
+        plan = document.getElementById('outro').value
+    }
+    if (plan != 'Medicamento:') {
+        var quantidade  = document.getElementById('quantidade').value
+        if (quantidade != '' && parseInt(quantidade) != 0) {
+            var period      = document.getElementById('period').value
+            if (period != 'Periodo:') {
+                var consumo     = document.getElementById('consumo').value
+                if (consumo != '' && parseInt(consumo) != 0) {
+                    var recebimento = document.getElementById('recebimento').value
+                    if (recebimento != '') {
+                        var vencimento  = document.getElementById('vencimento').value
+                        if (vencimento != '') {
+                            var cad_api     = 'https://script.google.com/macros/s/AKfycbyuL0dsTbEd08dRVhwMhWNBtu4w3sUyyt6OZmMjQQDiTEMJ2FOmtcSCU3I8tnCCMHf5RA/exec?email=' + username + '&id=' + password + '&plan=' + plan + '&quant=' + quantidade + '&period=' + period + '&consumo=' + consumo + '&rec=' + recebimento + '&venc=' + vencimento
+                            apihandler.getUrl(cad_api).then((response) => {
+                                if (response['response'] === 'true') {
+                                    preloader.remove()
+                                    alert('Medicamento registrado! Dentro de 24h estara disponivel no seu estoque virtual.')
+                                    document.getElementById('plan').value        = 'Medicamento:'
+                                    document.getElementById('outro').value       = ''
+                                    document.getElementById('quantidade').value  = ''
+                                    document.getElementById('period').value      = 'Periodo:'
+                                    document.getElementById('consumo').value     = ''
+                                    document.getElementById('recebimento').value = ''
+                                    document.getElementById('vencimento').value  = ''
+                                } else {
+                                    preloader.remove()
+                                    alert('Algo deu errado. Por favor aguarde alguns instantes e tente novamente. Se o problema persistir contate o nosso email.')
+                                }
+                            })
+                        } else {
+                            preloader.remove()
+                            alert('Por favor insira uma data de vencimento validada.')
+                        }
+                    } else {
+                        preloader.remove()
+                        alert('Por favor insira uma data de recbimento validada.')
+                    }
+                } else {
+                    preloader.remove()
+                    alert('Por favor insira um consumo valido.')
+                }
+            } else {
+                preloader.remove()
+                alert('Por favor escolha um periodo de consumo.')
+            }
+        } else {
+            preloader.remove()
+            alert('Por favor escolha uma quantidade valida.')
+        }
+    } else {
+        preloader.remove()
+        alert('Por favor escolha um medicamento.')
+    }
+}
+
+function register_page_handler(event) {
+    header.manage_activation(1)
+    panel.remove()
+    profile.remove()
+    main.appendChild(newmed)
+
+    var register_btn = document.getElementById('register-btn')
+    var plan         = document.getElementById('plan')
+    
+    document.addEventListener('keypress', enter_med)
+    register_btn.addEventListener('click', register_medcine_handler)
+    plan.addEventListener('change', other_med_handler)
+}
+
+function profile_page_handler() {
+    header.manage_activation(2)
+
+    panel.remove()
+    newmed.remove()
+
+    profile = new Profile(username, password, plan)
+    main.appendChild(profile)
+}
+
+function logout() {
+    if (confirm("Voce quer mesmo sair da sua conta?")) {
+        username =  ''
+        password = ''
+        window.location = SETUP.ROOT
+    }
+}
+
+function panel_page_handler(event) {
+    preloader.build()
+    document.removeEventListener('keypress', enter_test)
+    profile.remove()
+    newmed.remove()
+    login.remove()
+    const content_api   = "https://script.google.com/macros/s/AKfycbxr73wZXIiCO6GRO8bInKam6H9uJyr4Ixl5EN6zFH5lulwZM6BIm7YvbGZPhatAWwxV/exec?email=" + username
+    apihandler.getUrl(content_api).then((content) => {
+        panel = Panel(content, username, password)
+        main.appendChild(panel)
+        header.update([['Estoque', 'estoque'], ['Adicionar', 'adicionar'], ['Perfil', 'perfil'], ['Logout', 'logout']])
+        header.manage_activation(0)
+        preloader.remove()
+
+        var register_btn = document.getElementById('panel-btn')
+        register_btn.addEventListener('click', register_page_handler)
+        var register_nav = document.getElementById('adicionar-link')
+        register_nav.addEventListener('click', register_page_handler)
+        var profile_nav  = document.getElementById('perfil-link')
+        profile_nav.addEventListener('click', profile_page_handler)
+        var panel_nav    = document.getElementById('estoque-link')
+        panel_nav.addEventListener('click', panel_page_handler)
+        var logout_nav   = document.getElementById('logout-link')
+        logout_nav.addEventListener('click', logout)
+    })
+}
+
+function other_med_handler(event) {
+    if (plan.value == 'Outro') {
+        var outro = document.createElement('input')
+        outro.id = 'outro'
+        outro.type = 'text'
+        outro.placeholder = 'Outro medicamento'
+        outro.classList.add('form-control')
+
+        var outro_group = document.createElement('div')
+        outro_group.classList.add('mt-3', 'form-group')
+        outro_group.appendChild(outro)
+
+        var quantidade  = document.getElementById('quantidade-group')
+        document.getElementById('form').insertBefore(outro_group, quantidade)
+    }
 }
 
 function login_handler() {
-    var  username = document.getElementById('username').value
-    var  password = document.getElementById('password').value
+    try {
+    username = document.getElementById('username').value
+    password = document.getElementById('password').value
 
-    const login_api = 'https://script.google.com/macros/s/AKfycbzqtxWCr2Lps92bBt2agMqJVZ_9kkT31h2C_kE-hFszqKRDpow-UPrDTpv1C8y3b7o4zA/exec?email=' + username + '&id=' + password
+    const login_api = 'https://script.google.com/macros/s/AKfycbzqGLxaWmpnBwrFCqH38KQmyp-lG3QgovbiVosd2F1B0PftdLvPVJrD3BTQwzI0JeSK_g/exec?email=' + username + '&id=' + password
 
-    getLogin(login_api).then((response) => {
+    console.log(login_api)
+
+    apihandler.getUrl(login_api).then((response) => {
+        preloader.remove()
         if (response['response'] === 'True') {
-            document.removeEventListener('keypress', enter_test)
-            login.remove()
-            const content_api   = "https://script.google.com/macros/s/AKfycbzuylcT9YIo1JUAQTk7Z_uQCUWE0d0cxYD4cauFOHOX_EAlS7YFCycSdkHULp_5YcWY/exec?email=" + username
-            getData(content_api).then((content) => {
-                var panel = Panel(content)
-                main.appendChild(panel)
-                remove_preloader()
-                var panel_btn = document.getElementById('panel-btn')
-                panel_btn.addEventListener('click', (e) => {
-                    panel.remove()
-                    main.appendChild(newmed)
-                    var register_btn = document.getElementById('register-btn')
-                    register_btn.addEventListener('click', (e) => {
-                        build_preloader()
-                        var  username = document.getElementById('username').value
-                        var  password = document.getElementById('password').value
-                        const login_api = 'https://script.google.com/macros/s/AKfycbzqtxWCr2Lps92bBt2agMqJVZ_9kkT31h2C_kE-hFszqKRDpow-UPrDTpv1C8y3b7o4zA/exec?email=' + username + '&id=' + password
-                        getLogin(login_api).then((response) => {
-                            if (response['response'] === 'True') {
-                                var plan        = document.getElementById('plan').value
-                                var quantidade  = document.getElementById('quantidade').value
-                                var period      = document.getElementById('period').value
-                                var consumo     = document.getElementById('quantidade').value
-                                var recebimento = document.getElementById('recebimento').value
-                                var vencimento  = document.getElementById('quantidade').value
-                                var cad_api     = 'https://script.google.com/macros/s/AKfycbwfuRr-EMICltQdAMm6ZTfB3hYw5eu91J7AkdC-WIRI_YOnhFykdvl_wXyePwn5kElrPA/exec?email=' + username + '&id=' + password + '&plan=' + plan + '&quant=' + quantidade + '&period=' + period + '&consumo=' + consumo + '&rec=' + recebimento + '&venc=' + vencimento
-                                getData(cad_api).then((response) => {
-                                    if (response['response'] === 'true') {
-                                        remove_preloader()
-                                        alert('Medicamento registrado! Dentro de 24h estara disponivel no seu estoque virtual.')
-                                    } else {
-                                        remove_preloader()
-                                        alert('Algo deu errado. Por favor aguarde alguns instantes e tente novamente. Se o problema persistir contate o nosso email.')
-                                    }
-                                })
-                            } else {
-                                remove_preloader()
-                                alert('Email ou senha incoretos.')
-                            }
-                        })
-                    })
-                })
-            })
+            plan = response['plan']
+            panel_page_handler()
         } else {
-            remove_preloader()
             alert('Usuario ou senha incorretos!')
         }
     })
+    } catch {
+        preloader.remove()
+    }
 }
 
 var buy_btns = document.getElementsByClassName('btn-buy')
@@ -225,27 +265,31 @@ for (var k=0; k<buy_btns.length; k++) {
     let buy_btn = buy_btns[k]
     buy_btn.addEventListener('click', (e) => {
         remove_home()
-        format_header()  
+        //format_header()  
+        header.relink()
         main.appendChild(signin)
         var s_btn = document.getElementById('signin-btn')
         s_btn.addEventListener('click', (e) => {
-            build_preloader()
-            var  username = document.getElementById('username').value
-            var  plan     = document.getElementById('plan').value
-            var  terms    = document.getElementById('terms').checked
+            preloader.build()
+            var username = document.getElementById('username').value
+            var plan     = document.getElementById('plan').value
+            var terms    = document.getElementById('terms').checked
             if (terms) {
                 var email_api = 'https://script.google.com/macros/s/AKfycbxhQlER92Kln4PqFJPs4TJmOvFP6b_YgmwyWLCmbFBz7HuzcMKktoT5t4LRd44aygYu/exec?email=' + username 
-                getData(email_api).then((response) => {
-                    remove_preloader()
+                apihandler.getUrl(email_api).then((response) => {
+                    preloader.remove()
                     if (response['response'] === 'True') {
                         alert('O email ja esta associado a uma conta!')
                     } else {
                         if (plan == 'Escolha um plano:') {
                             alert('Por favor escolha um plano.')
                         } else {
-                            var register_api = 'https://script.google.com/macros/s/AKfycbz9PNUdWOXcLR6JGiJiPZ92S_rPECp6q9ksOgxxn7NiX-vVCNpQ6NQxxbAcBHPci4Va/exec?email=' + username + '&plan=' + plan
-                            getData(register_api).then((response) => {
+                            var register_api = 'https://script.google.com/macros/s/AKfycbzdjzjftuqSaXO9vlNyzu_6Wd-XKfC9fSxoNorXkb0Fm5-6CQ5-2LqnthMxBNanOJKw/exec?email=' + username + '&plan=' + plan
+                            apihandler.getUrl(register_api).then((response) => {
                                 alert('Dentro de 24h enviaremos um email pra o endereco indicado com as proximas instrucoes.')
+                                document.getElementById('username').value = ''
+                                document.getElementById('plan').value     = 'Escolha um plano:'
+                                document.getElementById('terms').checked  = false
                             })
                         }
                     }
@@ -257,48 +301,21 @@ for (var k=0; k<buy_btns.length; k++) {
     })
 }
 
-var nav     = document.getElementById('navbar')
-var trigger = document.getElementById('icon')
-var nav_links = document.getElementsByClassName('nav-link')
-
-function mobile_nav() {
-    trigger.addEventListener('click', (event) => {
-        nav.classList.add('navbar-mobile')
-        trigger.classList.remove('bi-list')
-        trigger.classList.add('bi-x')
-        trigger.removeAttribute('style')
-        trigger.setAttribute('style', 'color: white;')
-        for (let i=0; i<nav_links.length; i++) {
-            nav_links[i].addEventListener('click', web_nav)
-        }
-        trigger.addEventListener('click', (event) => {
-            web_nav()
-        })
-    })
-}
-
-function web_nav() {
-    nav.classList.remove('navbar-mobile')
-    trigger.classList.remove('bi-x')
-    trigger.classList.add('bi-list')
-    trigger.setAttribute('style', 'color: black;')
-    // remove event listener
-    mobile_nav()
-}
-
-mobile_nav()
+header.mobile_nav()
 
 document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) => {
+    window.onscroll = function() {}
+    header.update([['Início', '#hero'], ['Login', '#']])
+    header.manage_activation(1)
     event.preventDefault();
     remove_home()
     build_login()
-    format_header()
+    header.relink()
 
     var btn  = document.getElementById('login-btn')
     var form = document.getElementsByClassName('login-form')[0]
     btn.addEventListener('click', (e) => {
-        //remove_home()
-        build_preloader()
+        preloader.build()
         login_handler()
     })
 
@@ -306,43 +323,5 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
 
 })
 
-var h_links = document.getElementsByClassName('linkedto')
-window.onscroll = function() {myFunction()};
 
-function myFunction() {
-    if (document.body.scrollTop < 400 || document.documentElement.scrollTop < 400) {
-        h_links[0].classList.add('active')
-        h_links[1].classList.remove('active')
-        h_links[2].classList.remove('active')
-        h_links[3].classList.remove('active')
-        h_links[4].classList.remove('active')
-    }
-    if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-        h_links[1].classList.add('active')
-        h_links[0].classList.remove('active')
-        h_links[2].classList.remove('active')
-        h_links[3].classList.remove('active')
-        h_links[4].classList.remove('active')
-    }
-    if (document.body.scrollTop > 1600 || document.documentElement.scrollTop > 1600) {
-        h_links[2].classList.add('active')
-        h_links[1].classList.remove('active')
-        h_links[0].classList.remove('active')
-        h_links[3].classList.remove('active')
-        h_links[4].classList.remove('active')
-    }
-    if (document.body.scrollTop > 2200 || document.documentElement.scrollTop > 2200) {
-        h_links[3].classList.add('active')
-        h_links[1].classList.remove('active')
-        h_links[2].classList.remove('active')
-        h_links[0].classList.remove('active')
-        h_links[4].classList.remove('active')
-    }
-    if (document.body.scrollTop > 2500 || document.documentElement.scrollTop > 2500) {
-        h_links[4].classList.add('active')
-        h_links[1].classList.remove('active')
-        h_links[2].classList.remove('active')
-        h_links[3].classList.remove('active')
-        h_links[0].classList.remove('active')
-    }
-}
+window.onscroll = function() {header.dinamize()}
