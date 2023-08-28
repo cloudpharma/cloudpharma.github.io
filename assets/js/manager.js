@@ -163,6 +163,15 @@ function register_medcine_handler(event) {
 }
 
 function register_page_handler(event) {
+    var register_nav = document.getElementById('adicionar-link')
+    register_nav.removeEventListener('click', register_page_handler)
+
+    var profile_nav  = document.getElementById('perfil-link')
+    profile_nav.addEventListener('click', profile_page_handler)
+
+    var panel_nav    = document.getElementById('estoque-link')
+    panel_nav.addEventListener('click', panel_page_handler)
+
     header.manage_activation(1)
     panel.remove()
     profile.remove()
@@ -178,6 +187,15 @@ function register_page_handler(event) {
 }
 
 function profile_page_handler() {
+    var profile_nav  = document.getElementById('perfil-link')
+    profile_nav.removeEventListener('click', profile_page_handler)
+
+    var register_nav = document.getElementById('adicionar-link')
+    register_nav.addEventListener('click', register_page_handler)
+
+    var panel_nav    = document.getElementById('estoque-link')
+    panel_nav.addEventListener('click', panel_page_handler)
+
     header.manage_activation(2)
 
     panel.remove()
@@ -185,14 +203,6 @@ function profile_page_handler() {
 
     profile = new Profile(username, password, u_plan)
     main.appendChild(profile)
-}
-
-function logout() {
-    if (confirm("Voce quer mesmo sair da sua conta?")) {
-        username =  ''
-        password = ''
-        window.location = SETUP.ROOT
-    }
 }
 
 function panel_page_handler(event) {
@@ -221,11 +231,17 @@ function panel_page_handler(event) {
         register_nav.addEventListener('click', register_page_handler)
         var profile_nav  = document.getElementById('perfil-link')
         profile_nav.addEventListener('click', profile_page_handler)
-        var panel_nav    = document.getElementById('estoque-link')
-        panel_nav.addEventListener('click', panel_page_handler)
         var logout_nav   = document.getElementById('logout-link')
         logout_nav.addEventListener('click', logout)
     })
+}
+
+function logout() {
+    if (confirm("Voce quer mesmo sair da sua conta?")) {
+        username =  ''
+        password = ''
+        window.location = SETUP.ROOT
+    }
 }
 
 function other_med_handler(event) {
