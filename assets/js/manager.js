@@ -183,7 +183,7 @@ function profile_page_handler() {
     panel.remove()
     newmed.remove()
 
-    profile = new Profile(username, password, plan)
+    profile = new Profile(username, password, u_plan)
     main.appendChild(profile)
 }
 
