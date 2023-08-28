@@ -80,7 +80,6 @@ class Forgot {
         var form = document.createElement('form')
         form.classList.add('php-email-form', 'mt-4', 'login-form')
         form.action = ''
-        form.method = 'post'
         form.id     = 'form'
         form.role   = 'form'
         form.appendChild(username_group)
@@ -114,35 +113,35 @@ class Forgot {
     send_signal() {
         this.btn.addEventListener('click', (event) => {
             this.preloader.build()
-            const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
-            this.apihandler.getUrl(forgot_api).then((response) => {
-                if (this.username_input.value != '') {
+            if (this.username_input.value != '') {
+                const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
+                this.apihandler.getUrl(forgot_api).then((response) => {
                     this.preloader.remove()
                     alert('Sua senha foi enviada ao email informado.')
-                    //location.href = SETUP.ROOT
-                    //location.reload()
-                } else {
-                    this.preloader.remove()
-                    alert('Insira um email.')
-                }
-            })
+                    location.href = SETUP.ROOT
+                    location.reload()
+                })
+            } else {
+                this.preloader.remove()
+                alert('Insira um email.')
+            }
         })
 
         document.addEventListener('keypress', (event) => {
             if (event.key === "Enter") {
                 this.preloader.build()
-                const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
-                this.apihandler.getUrl(forgot_api).then((response) => {
-                    if (this.username_input.value != '') {
+                if (this.username_input.value != '') {
+                    const forgot_api = 'https://script.google.com/macros/s/AKfycbyVsh3t3fKNN3oY9HUYX4vcQsVnaooZxVriTd-epCzcYaupXJsBCS1S02h1jftyd8Fn/exec?email=' + this.username_input.value
+                    this.apihandler.getUrl(forgot_api).then((response) => {
                         this.preloader.remove()
                         alert('Sua senha foi enviada ao email informado.')
-                        //location.href = SETUP.ROOT
-                        //location.reload()
-                    } else {
-                        this.preloader.remove()
-                        alert('Insira um email.')
-                    }
-                })
+                        location.href = SETUP.ROOT
+                        location.reload()
+                    })
+                } else {
+                    this.preloader.remove()
+                    alert('Insira um email.')
+                }
             }
         })
     }
