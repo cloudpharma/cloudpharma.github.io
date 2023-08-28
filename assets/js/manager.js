@@ -51,7 +51,7 @@ var panel = ''
 
 var username = ''
 var password = ''
-var plan     = ''
+var u_plan   = ''
 var u_meds   = ['Nenhuma sugestao disponivel.']
 
 main.setAttribute('style', 'min-height: 600px;')
@@ -252,12 +252,10 @@ function login_handler() {
 
     const login_api = 'https://script.google.com/macros/s/AKfycbzqGLxaWmpnBwrFCqH38KQmyp-lG3QgovbiVosd2F1B0PftdLvPVJrD3BTQwzI0JeSK_g/exec?email=' + username + '&id=' + password
 
-    console.log(login_api)
-
     apihandler.getUrl(login_api).then((response) => {
         preloader.remove()
         if (response['response'] === 'True') {
-            plan = response['plan']
+            u_plan = response['plan']
             panel_page_handler()
         } else {
             alert('Usuario ou senha incorretos!')
