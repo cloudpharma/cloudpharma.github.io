@@ -52,6 +52,7 @@ var panel = ''
 var username = ''
 var password = ''
 var plan     = ''
+var u_meds   = ['Nenhuma sugestao disponivel.']
 
 main.setAttribute('style', 'min-height: 600px;')
 
@@ -165,6 +166,7 @@ function register_page_handler(event) {
     header.manage_activation(1)
     panel.remove()
     profile.remove()
+    newmed = NewMed(u_meds, period)
     main.appendChild(newmed)
 
     var register_btn = document.getElementById('register-btn')
@@ -201,6 +203,12 @@ function panel_page_handler(event) {
     login.remove()
     const content_api   = "https://script.google.com/macros/s/AKfycbxr73wZXIiCO6GRO8bInKam6H9uJyr4Ixl5EN6zFH5lulwZM6BIm7YvbGZPhatAWwxV/exec?email=" + username
     apihandler.getUrl(content_api).then((content) => {
+        u_meds = []
+        for (const [key, values] of Object.entries(content)) {
+            u_meds.push(content[key]['nome'])
+        }
+        u_meds.unshift('Medicamento:')
+        u_meds.push('Outro')
         panel = Panel(content, username, password)
         main.appendChild(panel)
         header.update([['Estoque', 'estoque'], ['Adicionar', 'adicionar'], ['Perfil', 'perfil'], ['Logout', 'logout']])
