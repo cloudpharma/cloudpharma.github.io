@@ -5,7 +5,7 @@ class Header {
     build() {
         var image     = document.createElement('img')
         image.classList.add('img-fluid')
-        image.setAttribute('src', 'assets/img/logo.png')
+        image.setAttribute('src', 'assets/img/logos/logo.png')
         image.setAttribute('alt', 'logo')
 
         var logo      = document.createElement('a')

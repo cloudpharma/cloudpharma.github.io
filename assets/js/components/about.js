@@ -3,7 +3,7 @@ import { CONFIGS } from "../config.js"
 function About() {
     var image   = document.createElement('img')
     image.classList.add('img-fluid')
-    image.src   = 'assets/img/about.png'
+    image.src   = 'assets/img/logos/about.png'
     image.alt   = 'logo'
     image.style = 'margin-left: 5vw;'
 
