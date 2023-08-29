@@ -25,11 +25,16 @@ function Signin(planos) {
     var email_text       = document.createElement('p')
     email_text.innerHTML = CONFIGS.EMAIL
 
+    var attention_text       = document.createElement('p')
+    attention_text.innerHTML = '\n Atencao: Para a funcionaliidade premium de marcar eventos funcionar e necessario que o email registrado seja um gmail.'
+    attention_text.setAttribute('style', 'color: #63c055')
+
     var info_box = document.createElement('div')
     info_box.classList.add('info-box', 'mb-4')
     info_box.appendChild(icon)
     info_box.appendChild(info_title)
     info_box.appendChild(email_text)
+    info_box.appendChild(attention_text)
 
     var first_row_col = document.createElement('div')
     first_row_col.classList.add('col-lg-12', 'col-md-6')
