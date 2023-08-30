@@ -1,32 +1,43 @@
-import { SETUP } from './setup.js'
+//* import setup
+import { SETUP }      from './setup.js'
 
-import {Header} from './components/header.js'
-import {Hero}   from './components/hero.js'
-import { About } from './components/about.js'
-import { WhyUs } from './components/whyus.js'
-import { Pricing } from './components/pricing.js'
-import { CTA } from './components/cta.js'
-import { Panel } from './components/panel.js'
-import { Contact } from './components/contact.js'
-import { Footer } from './components/footer.js'
+//* import fixed components
+import { Header}      from './components/header.js'
+import { Footer }     from './components/footer.js'
 
-import { Login } from './components/login.js'
-import { Signin } from './components/signin.js'
-import { NewMed } from './components/newmed.js'
-import { Forgot } from './components/forgot.js'
-import { Profile } from './components/profile.js'
+//* import home components
+import { Hero}        from './components/hero.js'
+import { About }      from './components/about.js'
+import { WhyUs }      from './components/whyus.js'
+import { Pricing }    from './components/pricing.js'
+import { CTA }        from './components/cta.js'
+import { Panel }      from './components/panel.js'
+import { Contact }    from './components/contact.js'
 
-import { PreLoader } from './utils/loading.js'
+//* import extra sections components
+import { Login }      from './components/login.js'
+import { SignIn }     from './components/signin.js'
+import { NewMed }     from './components/newmed.js'
+import { Forgot }     from './components/forgot.js'
+import { Profile }    from './components/profile.js'
+
+//* import utils
+import { PreLoader }  from './utils/loading.js'
 import { ApiHandler } from './utils/apihandler.js'
 
+// todo: Clients
+// todo: Services
+// todo: Portfolio
+// todo: Team
+
+//* customise especific components
 var cta_title       = 'Ja tem uma conta?'
 var cta_description = 'Acesse o linke abaixo para entrar na Cloud Pharma com a sua conta e aproveitar tudo que essa platafoma tem a te oferecer.'
 var cta_link        = '#'
 var cta_btn_text    = 'Entrar'
-
-var planos = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']
-var med    = ['Medicamento:', 'Tilenol', 'Xanax', 'Neoflerin', 'Outro']
-var period = ['Periodo:', 'Diario', 'Semanal', 'Mensal', 'Anual']
+var planos          = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']
+var med             = ['Medicamento:', 'Tilenol', 'Xanax', 'Neoflerin', 'Outro']
+var period          = ['Periodo:', 'Diario', 'Semanal', 'Mensal', 'Anual']
 
 var body   = document.getElementById('body')
 var main   = document.getElementById('main')
@@ -41,7 +52,7 @@ var whyus   = WhyUs()
 var pricing = Pricing()
 var cta     = CTA(cta_title, cta_description, cta_link, cta_btn_text)
 var login   = new Login(Forgot, enter_test)
-var signin  = Signin(planos)
+var signin  = new SignIn(planos)
 var profile = new Profile('lucamoreira007@gmail.com', 'Premium')
 var contact = Contact()
 var newmed  = NewMed(med, period)
@@ -56,9 +67,34 @@ var u_meds   = ['Nenhuma sugestao disponivel.']
 
 main.setAttribute('style', 'min-height: 600px;')
 
+class Home {
+    constructor(){
+        this.main = document.getElementById('main')
+    }
+
+    build() {
+        this.main.appendChild(hero)
+        this.main.appendChild(about)
+        this.main.appendChild(whyus)
+        this.main.appendChild(pricing)
+        this.main.appendChild(cta)
+        this.main.appendChild(contact)
+    }
+
+    remove() {
+        document.getElementById('hero').remove()
+        document.getElementById('about').remove()
+        document.getElementById('why-us').remove()
+        document.getElementById('pricing').remove()
+        document.getElementById('cta').remove()
+        document.getElementById('contact').remove()
+    }
+}
+
 function build_home() {
-    body.insertBefore(hero, body.firstChild)
-    body.insertBefore(header.build(), body.firstChild)
+    body.appendChild(header.build())
+    //body.insertBefore(hero, body.firstChild)
+    main.appendChild(hero)
     main.appendChild(about)
     main.appendChild(whyus)
     main.appendChild(pricing)
@@ -79,13 +115,6 @@ function remove_home() {
 function build_login() {
     main.appendChild(login)
 }
-
-build_home()
-
-// todo: Clients
-// todo: Services
-// todo: Portfolio
-// todo: Team
 
 function enter_test(event) {
     if (event.key === "Enter") {
@@ -278,48 +307,20 @@ function login_handler() {
     })
 }
 
+//* code start
+
+build_home()
+header.mobile_nav() 
+
 var buy_btns = document.getElementsByClassName('btn-buy')
 for (var k=0; k<buy_btns.length; k++) {
     let buy_btn = buy_btns[k]
     buy_btn.addEventListener('click', (e) => {
-        remove_home()
-        //format_header()  
+        remove_home() 
         header.relink()
-        main.appendChild(signin)
-        var s_btn = document.getElementById('signin-btn')
-        s_btn.addEventListener('click', (e) => {
-            preloader.build()
-            var username = document.getElementById('username').value
-            var plan     = document.getElementById('plan').value
-            var terms    = document.getElementById('terms').checked
-            if (terms) {
-                var email_api = 'https://script.google.com/macros/s/AKfycbxhQlER92Kln4PqFJPs4TJmOvFP6b_YgmwyWLCmbFBz7HuzcMKktoT5t4LRd44aygYu/exec?email=' + username 
-                apihandler.getUrl(email_api).then((response) => {
-                    preloader.remove()
-                    if (response['response'] === 'True') {
-                        alert('O email ja esta associado a uma conta!')
-                    } else {
-                        if (plan == 'Escolha um plano:') {
-                            alert('Por favor escolha um plano.')
-                        } else {
-                            var register_api = 'https://script.google.com/macros/s/AKfycbzdjzjftuqSaXO9vlNyzu_6Wd-XKfC9fSxoNorXkb0Fm5-6CQ5-2LqnthMxBNanOJKw/exec?email=' + username + '&plan=' + plan
-                            apihandler.getUrl(register_api).then((response) => {
-                                alert('Dentro de 24h enviaremos um email pra o endereco indicado com as proximas instrucoes.')
-                                document.getElementById('username').value = ''
-                                document.getElementById('plan').value     = 'Escolha um plano:'
-                                document.getElementById('terms').checked  = false
-                            })
-                        }
-                    }
-                })
-            } else {
-                alert('Para continuar voce deve aceitar os termos e condicoes.')
-            }
-        })
+        main.appendChild(signin.build())
     })
 }
-
-header.mobile_nav()
 
 document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) => {
     window.onscroll = function() {}
@@ -331,7 +332,6 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
     header.relink()
 
     var btn  = document.getElementById('login-btn')
-    var form = document.getElementsByClassName('login-form')[0]
     btn.addEventListener('click', (e) => {
         preloader.build()
         login_handler()
@@ -343,3 +343,5 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
 
 
 window.onscroll = function() {header.dinamize()}
+
+//* code end
