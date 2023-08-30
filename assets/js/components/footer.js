@@ -89,9 +89,10 @@ function Footer() {
     strong.appendChild(span)
 
     var copyright       = document.createElement('div')
-    copyright.classList.add('copyright')
-    copyright.innerHTML = '&copy; Copyright '
     copyright.appendChild(strong)
+    copyright.classList.add('copyright')
+    copyright.innerHTML = copyright.innerHTML + ' &copy; Copyright 2023'
+    //copyright.appendChild(strong)
     copyright.appendChild(document.createTextNode('. All Rights Reserved'))
 
     var footer_bottom = document.createElement('div')
