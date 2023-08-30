@@ -262,7 +262,6 @@ function other_med_handler(event) {
 }
 
 function login_handler() {
-    try {
     username = document.getElementById('username').value
     password = document.getElementById('password').value
 
@@ -277,9 +276,6 @@ function login_handler() {
             alert('Usuario ou senha incorretos!')
         }
     })
-    } catch {
-        preloader.remove()
-    }
 }
 
 var buy_btns = document.getElementsByClassName('btn-buy')

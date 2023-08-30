@@ -1,9 +1,14 @@
 class ApiHandler{
     async getUrl(url) {
-        const raw_data = await fetch(url)
-        const response = await raw_data.json()
+        try {
+            const raw_data = await fetch(url)
+            const response = await raw_data.json()
 
-        return response
+            return response
+        } catch {
+            console.log('Algo deu errado. Tente novamente mais tarde. Caso o problema persista, no contate.')
+            return {}
+        }
     } 
 }
 
