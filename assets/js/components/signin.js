@@ -121,6 +121,7 @@ function Signin(planos) {
     terms_input.type        = 'checkbox'
     terms_input.id          = 'terms'
     terms_input.setAttribute('required', '')
+    terms_input.setAttribute('style', 'display: inline; margin-right: 5px;')
 
     var policies_text = document.createElement('a')
     policies_text.innerHTML = 'Politicas de Privacidade e Seguranca'
@@ -134,6 +135,7 @@ function Signin(planos) {
 
     var terms_label = document.createElement('label')
     terms_label.setAttribute('for', 'terms')
+    terms_label.setAttribute('style', 'display: inline;')
     terms_label.innerHTML = 'Li e aceito os '
     terms_label.appendChild(terms_text)
     terms_label.appendChild(document.createTextNode(' e as '))
