@@ -122,14 +122,22 @@ function Signin(planos) {
     terms_input.id          = 'terms'
     terms_input.setAttribute('required', '')
 
+    var policies_text = document.createElement('a')
+    policies_text.innerHTML = 'Politicas de Privacidade e Seguranca'
+    policies_text.href = 'https://docs.google.com/document/d/19FVSU-AT1o5gJcWkEPnrHGVpv-hPjI5FSK1TrFPmx4o/edit?usp=sharing'
+    policies_text.setAttribute('style', 'color: #78ee66;')
+
     var terms_text = document.createElement('a')
     terms_text.innerHTML = 'termos e condicoes de uso'
+    terms_text.href = 'https://docs.google.com/document/d/1X4NALNKqRuqUcmXPnCIYFXao2fFN8v7epYRL1xeZYus/edit?usp=sharing'
     terms_text.setAttribute('style', 'color: #78ee66;')
 
     var terms_label = document.createElement('label')
     terms_label.setAttribute('for', 'terms')
     terms_label.innerHTML = 'Li e aceito os '
     terms_label.appendChild(terms_text)
+    terms_label.appendChild(document.createTextNode(' e as '))
+    terms_label.appendChild(policies_text)
 
     var terms_group = document.createElement('div')
     terms_group.classList.add('text-center')
