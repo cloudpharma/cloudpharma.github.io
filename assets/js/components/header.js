@@ -71,13 +71,13 @@ class Header {
     }
 
     dinamize() {
-        if (document.body.scrollTop < 400 || document.documentElement.scrollTop < 400) {
+        if (document.body.scrollTop < 500 || document.documentElement.scrollTop < 500) {
             this.manage_activation(0)
         }
-        if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
             this.manage_activation(1)
         }
-        if (document.body.scrollTop > 1100 || document.documentElement.scrollTop > 1100) {
+        if (document.body.scrollTop > 900 || document.documentElement.scrollTop > 900) {
             this.manage_activation(2)
         }
         if (document.body.scrollTop > 1600 || document.documentElement.scrollTop > 1600) {
