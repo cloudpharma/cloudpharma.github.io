@@ -246,8 +246,8 @@ function panel_page_handler(event) {
         for (const [key, values] of Object.entries(content)) {
             u_meds.push(content[key]['nome'])
         }
+        u_meds.unshift('Novo Medicamento')
         u_meds.unshift('Medicamento:')
-        u_meds.push('Outro')
         panel = Panel(content, username, password)
         main.appendChild(panel)
         header.update([['Estoque', 'estoque'], ['Adicionar', 'adicionar'], ['Perfil', 'perfil'], ['Sair', 'logout']])
@@ -274,11 +274,11 @@ function logout() {
 }
 
 function other_med_handler(event) {
-    if (plan.value == 'Outro') {
+    if (plan.value == 'Novo Medicamento') {
         var outro = document.createElement('input')
         outro.id = 'outro'
         outro.type = 'text'
-        outro.placeholder = 'Outro medicamento'
+        outro.placeholder = 'Novo medicamento'
         outro.classList.add('form-control')
 
         var outro_group = document.createElement('div')
@@ -324,7 +324,7 @@ for (var k=0; k<buy_btns.length; k++) {
 
 document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) => {
     window.onscroll = function() {}
-    header.update([['Início', '#hero'], ['Login', '#']])
+    header.update([['Início', '#hero'], ['Entrar', '#']])
     header.manage_activation(1)
     event.preventDefault();
     remove_home()
