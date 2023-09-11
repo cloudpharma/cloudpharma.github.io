@@ -96,9 +96,9 @@ function build_home() {
     //body.insertBefore(hero, body.firstChild)
     main.appendChild(hero)
     main.appendChild(about)
-    main.appendChild(whyus)
     main.appendChild(pricing)
     main.appendChild(cta)
+    main.appendChild(whyus)
     main.appendChild(contact)
     body.appendChild(footer)
 }

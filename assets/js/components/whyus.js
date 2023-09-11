@@ -1,6 +1,22 @@
 import { CONFIGS } from "../config.js"
 
 function WhyUs() {
+    var title_span       = document.createElement('span')
+    title_span.innerHTML = 'MVV'
+
+    var title       = document.createElement('h2')
+    title.innerHTML = 'MVV'
+
+    var subs       = document.createElement('p')
+    subs.innerHTML = 'Tem algo a nos dizer? Entre em contato'
+
+    var section_title = document.createElement('div')
+    section_title.classList.add('section-title')
+    section_title.setAttribute('style', 'margin-top: 80px;')
+    section_title.appendChild(title_span)
+    section_title.appendChild(title)
+    //section_title.appendChild(subs)
+
     var row = document.createElement('div')
     row.classList.add('row')
 
@@ -32,6 +48,7 @@ function WhyUs() {
 
     var container = document.createElement('div')
     container.classList.add('container')
+    container.appendChild(section_title)
     container.appendChild(row)
 
     var section = document.createElement('section')

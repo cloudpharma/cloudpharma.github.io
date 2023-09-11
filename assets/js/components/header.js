@@ -77,14 +77,17 @@ class Header {
         if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
             this.manage_activation(1)
         }
-        if (document.body.scrollTop > 1600 || document.documentElement.scrollTop > 1600) {
+        if (document.body.scrollTop > 1100 || document.documentElement.scrollTop > 1100) {
             this.manage_activation(2)
         }
-        if (document.body.scrollTop > 2200 || document.documentElement.scrollTop > 2200) {
+        if (document.body.scrollTop > 1600 || document.documentElement.scrollTop > 1600) {
             this.manage_activation(3)
         }
-        if (document.body.scrollTop > 2500 || document.documentElement.scrollTop > 2500) {
+        if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
             this.manage_activation(4)
+        }
+        if (document.body.scrollTop > 2400 || document.documentElement.scrollTop > 2400) {
+            this.manage_activation(5)
         }
     }
 
