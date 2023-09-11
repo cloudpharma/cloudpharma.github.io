@@ -258,7 +258,7 @@ function panel_page_handler(event) {
         register_btn.addEventListener('click', register_page_handler)
         var register_nav = document.getElementById('adicionar-link')
         register_nav.addEventListener('click', register_page_handler)
-        var profile_nav  = document.getElementById('perfil-link')
+        var profile_nav   = document.getElementById('perfil-link')
         profile_nav.addEventListener('click', profile_page_handler)
         var logout_nav   = document.getElementById('logout-link')
         logout_nav.addEventListener('click', logout)
@@ -275,6 +275,8 @@ function logout() {
 
 function other_med_handler(event) {
     if (plan.value == 'Novo Medicamento') {
+        plan.remove()
+        document.getElementById('arrow').remove()
         var outro = document.createElement('input')
         outro.id = 'outro'
         outro.type = 'text'

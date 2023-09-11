@@ -78,6 +78,7 @@ function NewMed(medicamentos, periodos) {
     subject_input.setAttribute('style', 'color: #666666; font-size: 15px; border-radius: 0px; height: 42px;')
 
     var arrow_icon = document.createElement('i')
+    arrow_icon.id  = 'arrow'
     arrow_icon.classList.add('bi', 'bi-caret-down-fill')
     arrow_icon.setAttribute('style', 'color: #666666; position: relative; float: right; top: -32px; right: 20px;')
 
