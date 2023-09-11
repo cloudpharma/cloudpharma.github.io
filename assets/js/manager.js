@@ -250,7 +250,7 @@ function panel_page_handler(event) {
         u_meds.push('Outro')
         panel = Panel(content, username, password)
         main.appendChild(panel)
-        header.update([['Estoque', 'estoque'], ['Adicionar', 'adicionar'], ['Perfil', 'perfil'], ['Logout', 'logout']])
+        header.update([['Estoque', 'estoque'], ['Adicionar', 'adicionar'], ['Perfil', 'perfil'], ['Sair', 'logout']])
         header.manage_activation(0)
         preloader.remove()
 
