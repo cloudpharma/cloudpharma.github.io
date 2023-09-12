@@ -32,7 +32,7 @@ import { ApiHandler } from './utils/apihandler.js'
 
 //* customise especific components
 var cta_title       = 'Ja tem uma conta?'
-var cta_description = 'Acesse o linke abaixo para entrar na Cloud Pharma com a sua conta e aproveitar tudo que essa platafoma tem a te oferecer.'
+var cta_description = 'Acesse o link abaixo para entrar na Cloud Pharma com a sua conta e aproveitar tudo que essa platafoma tem a te oferecer.'
 var cta_link        = '#'
 var cta_btn_text    = 'Entrar'
 var planos          = ['Escolha um plano:', 'Basico', 'Economico', 'Premium']

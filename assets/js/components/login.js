@@ -11,13 +11,13 @@ class Login {
 
     build() {
         var title_span       = document.createElement('span')
-        title_span.innerHTML = 'Login'
+        title_span.innerHTML = 'Entrar'
 
         var title       = document.createElement('h2')
-        title.innerHTML = 'Login'
+        title.innerHTML = 'Entrar'
 
         var subs       = document.createElement('p')
-        subs.innerHTML = 'Faça login com seu usuario e senha para entrar na Cloud Pharma e aproveitar tudo que essa platafoma tem a te oferecer.'
+        subs.innerHTML = 'Entre com seu usuario e senha para entrar na Cloud Pharma e aproveitar tudo que essa platafoma tem a te oferecer.'
 
         var section_title = document.createElement('div')
         section_title.classList.add('section-title')
