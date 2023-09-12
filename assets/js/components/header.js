@@ -46,6 +46,9 @@ class Header {
         var trigger   = document.getElementById('icon')
         var nav_links = document.getElementsByClassName('nav-link')
         trigger.addEventListener('click', (event) => {
+            for (let i=0; i<nav_links.length; i++) {
+                nav_links[i].setAttribute('style', 'font-size: 24px;')
+            }
             nav.classList.add('navbar-mobile')
             trigger.classList.remove('bi-list')
             trigger.classList.add('bi-x')
@@ -53,6 +56,9 @@ class Header {
             trigger.setAttribute('style', 'color: white;')
             for (let i=0; i<nav_links.length; i++) {
                 nav_links[i].addEventListener('click', (e) => {
+                    for (let j=0; j<nav_links.length; j++) {
+                        nav_links[j].setAttribute('style', 'font-size: 14px;')
+                    }
                     nav.classList.remove('navbar-mobile')
                     trigger.classList.remove('bi-x')
                     trigger.classList.add('bi-list')
@@ -61,6 +67,9 @@ class Header {
                 })
             }
             trigger.addEventListener('click', (event) => {
+                for (let i=0; i<nav_links.length; i++) {
+                    nav_links[i].setAttribute('style', 'font-size: 14px;')
+                }
                 nav.classList.remove('navbar-mobile')
                 trigger.classList.remove('bi-x')
                 trigger.classList.add('bi-list')
