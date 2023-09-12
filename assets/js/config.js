@@ -1,6 +1,6 @@
 const CONFIGS = {}
 
-CONFIGS.MENU        = [['Início', ''], ['Sobre', 'about'], ['Preço', 'pricing'], ['Entrar', 'cta'], ['MVV', 'why-us'], ['Contato', 'contact']]
+CONFIGS.MENU        = [['Início', ''], ['Sobre', 'about'], ['Planos', 'pricing'], ['Entrar', 'cta'], ['MVV', 'why-us'], ['Contato', 'contact']]
 CONFIGS.NAME        = 'Cloud Pharma'
 CONFIGS.EMAIL       = 'cloudpharmacontato@gmail.com'
 CONFIGS.SLOGAN      = 'Uma plataforma que visa ajudar as pessoas a planejar e organizar seu estoque de medicamentos.'

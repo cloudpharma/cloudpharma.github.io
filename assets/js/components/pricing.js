@@ -2,13 +2,13 @@ import { CONFIGS } from "../config.js"
 
 function Pricing() {
     var span       = document.createElement('span')
-    span.innerHTML = 'Preço'
+    span.innerHTML = 'Planos'
 
     var title       = document.createElement('h2')
-    title.innerHTML = 'Preço'
+    title.innerHTML = 'Planos'
 
     var description       = document.createElement('p')
-    description.innerHTML = 'Conheça nossos planos e seus benefícios'
+    description.innerHTML = 'Escolha o plano que mais combina com voce'
 
     var section_title = document.createElement('div')
     section_title.classList.add('section-title')
