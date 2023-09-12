@@ -10,6 +10,7 @@ function About() {
     var img_col = document.createElement('div')
     img_col.classList.add('col-lg-6', 'order-1', 'order-lg-2')
     img_col.setAttribute('data-aos', 'fade-left')
+    img_col.setAttribute('style', 'padding-top: 110px; padding-bottom: 110px;')
     img_col.appendChild(image)
 
     var title       = document.createElement('h3')
