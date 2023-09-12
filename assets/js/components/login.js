@@ -6,7 +6,7 @@ class Login {
     constructor(Forgot, listener) {
         this.Forgot     = new Forgot()
         this.old_listen = listener
-        return this.build()
+        this.eye_count  = 0
     }
 
     build() {
@@ -69,10 +69,19 @@ class Login {
         subject_input.placeholder = 'Senha'
         subject_input.setAttribute('required', '')
 
+        var eye_icon = document.createElement('i')
+        eye_icon.id  = 'eye'
+        eye_icon.classList.add('bi', 'bi-eye-slash')
+        eye_icon.setAttribute('style', 'color: #666666; position: relative; float: right; top: -32px; right: 20px;')
+
+        eye_icon.addEventListener('click', this.manageEye)
+
+
         var subject_group = document.createElement('div')
         subject_group.classList.add('mt-3', 'form-group')
         subject_group.setAttribute('style', 'margin-top: 0px')
         subject_group.appendChild(subject_input)
+        subject_group.appendChild(eye_icon)
 
         var loading = document.createElement('div')
         loading.classList.add('loading')
@@ -157,6 +166,24 @@ class Login {
 
     remove() {
         this.section.remove()
+    }
+
+    manageEye() {
+        if (this.eye_count == 0 || this.eye_count == undefined) {
+            const eye = document.getElementById('eye')
+            eye.classList.remove('bi-eye-slash')
+            eye.classList.add('bi-eye')
+            eye.removeEventListener('click', this.showEye)
+            eye.addEventListener('click', this.hideEye)
+            document.getElementById('password').type = 'text'
+            this.eye_count = 1
+        } else {
+            this.eye = document.getElementById('eye')
+            this.eye.classList.add('bi-eye-slash')
+            this.eye.classList.remove('bi-eye')
+            document.getElementById('password').type = 'password'
+            this.eye_count = 0
+        }
     }
 }
 
