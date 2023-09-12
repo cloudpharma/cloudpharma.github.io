@@ -321,6 +321,7 @@ for (var k=0; k<buy_btns.length; k++) {
         remove_home() 
         header.relink()
         main.appendChild(signin.build())
+        window.scrollTo(0, 0);
     })
 }
 
@@ -332,6 +333,7 @@ document.getElementsByClassName('cta-btn')[0].addEventListener('click', (event) 
     remove_home()
     build_login()
     header.relink()
+    window.scrollTo(0, 0);
 
     var btn  = document.getElementById('login-btn')
     btn.addEventListener('click', (e) => {
