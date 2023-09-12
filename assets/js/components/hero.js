@@ -9,6 +9,7 @@ function Hero() {
 
     var link        = document.createElement('a')
     link.classList.add('btn-get-started', 'scrollto')
+    link.setAttribute('style', 'font-size: 25px; font-weight: 500;')
     link.href       = '#about'
     link.innerHTML  = 'Sobre'
 
