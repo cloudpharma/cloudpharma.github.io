@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6738d19e.css",
+    "main.js": "/static/js/main.67f2c3bf.js",
+    "static/js/787.fa3c4679.chunk.js": "/static/js/787.fa3c4679.chunk.js",
+    "static/media/hero.jpeg": "/static/media/hero.849c207e76a9774b03b8.jpeg",
+    "static/media/ark-white-combined.png": "/static/media/ark-white-combined.c9fd6243feb1d9105e50.png",
+    "index.html": "/index.html",
+    "main.6738d19e.css.map": "/static/css/main.6738d19e.css.map",
+    "main.67f2c3bf.js.map": "/static/js/main.67f2c3bf.js.map",
+    "787.fa3c4679.chunk.js.map": "/static/js/787.fa3c4679.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6738d19e.css",
+    "static/js/main.67f2c3bf.js"
+  ]
+}
