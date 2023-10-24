@@ -1,0 +1,86 @@
+{
+    "name": "Nome",
+    "url": "nome.github.io",
+    "api": {
+        "url": "http://localhost:8000"
+    },
+    "contact": {
+        "email"     : "nome@gmail.com",
+        "instagram" : "@nomeinsta"
+    },
+    "colors": {
+        "primary"   : "#ffa000",
+        "secondary" : "#ff6f00",
+        "tertiary"  : "#ffc107",
+        "dark"      : "#000000",
+        "light"     : "#ffffff",
+        "offwhite"  : "#fafafa"
+    },
+    "header": {
+        "visitor": [
+            { "name": "Início",    "link": "/",       "childs": [{"name": "About Us", "link": "#aboutus"}] },
+            { "name": "Entrar",    "link": "/login",  "childs": [] },
+            { "name": "Registrar", "link": "/signup", "childs": [] }
+        ],
+        "user": [
+            { "name": "Início",      "link": "/",          "childs": [] },
+            { "name": "Inscreva-se", "link": "/subscribe", "childs": [] },
+            { "name": "Perfil",       "link": "/profile",    "childs": [] },
+            { "name": "Sair",        "link": "/",          "childs": [] }
+        ],
+        "client": [
+            { "name": "Início",      "link": "/",          "childs": [] },
+            { "name": "Perfil",       "link": "/profile",    "childs": [] },
+            { "name": "Estoque",     "link": "/stock",     "childs": [] },
+            { "name": "Sair",        "link": "/",          "childs": [] }
+        ]
+    },
+    "aboutus": {
+        "title"     : "Título do sobre nós",
+        "intro"     : "Intro do sobre nós",
+        "conclusion": "Conclusão do sobre nós"
+    },
+    "services": [
+        { "name": "Serviço 1", "icon": "business" },
+        { "name": "Serviço 2", "icon": "business" },
+        { "name": "Serviço 3", "icon": "business" }
+    ],
+    "plans": [
+        { "name": "Básico",    "price": "10", "id": "price_1NsCPGCCWI4dAyL9DaFIdHW7"},
+        { "name": "Econômico", "price": "20", "id": "price_1Nsl3kCCWI4dAyL9JyMIkxYS"},
+        { "name": "Premium",   "price": "30", "id": "price_1Nsl4UCCWI4dAyL9F1J32cUM"}
+    ],
+    "brands": [
+        { "name": "Ark Group", "description": "A holding do role" },
+        { "name": "Ark Group", "description": "A holding do role" },
+        { "name": "Ark Group", "description": "A holding do role" }
+    ],
+    "prizes": [
+        { "name": "Melhor Projeto de inclusão - Desafio Criativos da escola" },
+        { "name": "Melhor Projeto de inclusão - Desafio Criativos da escola" },
+        { "name": "Melhor Projeto de inclusão - Desafio Criativos da escola" }
+    ],
+    "media": [
+        { "title": "Plataforma que converte vídeo em texto está entre 50 premiados de desafio Criativos da Escola"},
+        { "title": "Plataforma que converte vídeo em texto está entre 50 premiados de desafio Criativos da Escola"},
+        { "title": "Plataforma que converte vídeo em texto está entre 50 premiados de desafio Criativos da Escola"}
+    ],
+    "team": [
+        { "name": "Joao",  "job": "Chief Marketing Officer",     "description": "O cara do role" },
+        { "name": "Maria", "job": "Chief Finance Officer",       "description": "Mestra do dinheiro" },
+        { "name": "Xuxa",  "job": "Chief Entertainment Officer", "description": "Faz a glr sorrir" }
+    ],
+    "mvv": {
+        "mission": "Nossa missão.",
+        "vision" : "Nossa visão.",
+        "values" : "Nossos valores."
+    },
+    "copyright": {
+        "year"  : "2021",
+        "url"   : "nome.github.io",
+        "owner" : {
+            "name" : "Ark Group",
+            "link" : "https://thearkgroup.github.io"
+        }
+    }
+}
