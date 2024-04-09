@@ -132,7 +132,7 @@ class Login extends Component {
             )
         } 
         if (this.state.redirect === true) {
-            window.location.replace('http://localhost:3000')
+            window.location.replace(configs.url)
         }
         if (this.state.redirect === null) {
             return (
