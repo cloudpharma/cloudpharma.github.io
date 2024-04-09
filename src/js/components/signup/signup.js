@@ -61,7 +61,7 @@ class Signup extends Component {
             apiservice.signUp(data).then((r) => {
                 localStorage.setItem('token', r.token)
                 localStorage.setItem('user', this.state.username)
-                window.location.replace(configs.url + '/subscribe')
+                window.location.replace(process.env.REACT_APP_URL + '/subscribe')
             }).catch((e) => {
                 alert('Algo deu errado. Tente novamente mais tarde. Se o problema persistir entre em contato.')
                 console.log(e)
@@ -125,7 +125,7 @@ class Signup extends Component {
             )
         }
         if (this.state.redirect === true) {
-            window.location.replace(configs.url)
+            window.location.replace(process.env.REACT_APP_URL)
         }
         if (this.state.redirect === null) {
             return (
