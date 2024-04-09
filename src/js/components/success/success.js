@@ -67,7 +67,7 @@ class Success extends Component {
                                     Seu pagamento foi concluido com sucesso! A partir de agora voce ja pode aproveitar todas as vantagens do seu plano.
                                 </div>
                                 <div className="card-action">
-                                    <a href='/profile' className='btn' style={{backgroundColor: configs.colors.secondary}}> Aproveitar Ja !</a>
+                                    <a href='/stock' className='btn' style={{backgroundColor: configs.colors.secondary}}> Aproveitar Ja !</a>
                                 </div>
                             </div>
                         </div>
@@ -76,7 +76,7 @@ class Success extends Component {
             )
         }
         if (this.state.confirm == false) {
-            window.location.replace('http://localhost:3000/failure')
+            window.location.replace(process.env.REACT_APP_URL + '/failure')
         }
     }
 }
