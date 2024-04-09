@@ -51,6 +51,10 @@ class HomePage extends Component {
         })
     }
 
+    componentDidMount() {
+        this.getAuth()
+    }
+
     render() {
         if (this.state.redirect === false) {
             return(
