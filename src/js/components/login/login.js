@@ -132,7 +132,7 @@ class Login extends Component {
             )
         } 
         if (this.state.redirect === true) {
-            window.location.replace(configs.url)
+            window.location.replace(process.env.REACT_APP_URL)
         }
         if (this.state.redirect === null) {
             return (
